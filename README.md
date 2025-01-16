@@ -21,13 +21,14 @@ Ne changer que la variable `forme_a_dessiner` au début du main avec une des val
 DESSIN_SANS_VAO = 0
 TRIANGLE = 1
 CARRE = 2
-CUBE = 3
-POINTS = 4
-LINES = 5
-LINE_STRIP = 6
-LINE_LOOP = 7
-TRIANGLE_STRIP = 8
-TRIANGLE_FAN = 9
+CARRE_EFFICACE = 3
+CUBE = 4
+POINTS = 5
+LINES = 6
+LINE_STRIP = 7
+LINE_LOOP = 8
+TRIANGLE_STRIP = 9
+TRIANGLE_FAN = 10
 ```
 
 Ensuite, à chaque modification du main, l'éxecuter avec :
