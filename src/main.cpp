@@ -13,14 +13,15 @@ int main()
     // Definition des formes géométriques
     static int DESSIN_SANS_VAO = 0;
     static int TRIANGLE = 1;
-    static int CARRE = 2;
-    static int CUBE = 3;
-    static int POINTS = 4;
-    static int LINES = 5;
-    static int LINE_STRIP = 6;
-    static int LINE_LOOP = 7;
-    static int TRIANGLE_STRIP = 8;
-    static int TRIANGLE_FAN = 9;
+    static int CARRE = 2;  // 2 triangles à partir de 6 points
+    static int CARRE_EFFICACE = 3;  // 2 triangle à partir de 4 points
+    static int CUBE = 4;
+    static int POINTS = 5;
+    static int LINES = 6;
+    static int LINE_STRIP = 7;
+    static int LINE_LOOP = 8;
+    static int TRIANGLE_STRIP = 9;
+    static int TRIANGLE_FAN = 10;
 
     //  /!\  Variable à modifier pour changer la forme à dessiner  /!\  -->
     int forme_a_dessiner = DESSIN_SANS_VAO;
@@ -79,6 +80,7 @@ int main()
     vec3 triangle[3] = {vec3(-0.5f, -0.5f, 0.0f), vec3(0.5f, -0.5f, 0.0f), vec3(0.0f, 0.5f, 0.0f)};
 
     vec3 carre[6] = {vec3(0.5f, -0.5f, 0.0f), vec3(-0.5f, -0.5f, 0.0f), vec3(0.5f, 0.5f, 0.0f), vec3(-0.5f, 0.5f, 0.0f), vec3(-0.5f, -0.5f, 0.0f), vec3(0.5f, 0.5f, 0.0f)};
+    vec3 carre_efficace[4] = {vec3(0.5f, -0.5f, 0.0f), vec3(-0.5f, -0.5f, 0.0f), vec3(0.5f, 0.5f, 0.0f), vec3(-0.5f, 0.5f, 0.0f)};
 
     vec3 cube[12] = {
         // Face avant
@@ -118,19 +120,23 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
 
     // Copie de données du CPU (dans vertex) vers le GPU (dans vboID)
-    if (forme_a_dessiner == 1)
+    if (forme_a_dessiner == TRIANGLE)
     {
         glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
     }
-    else if (forme_a_dessiner == 2)
+    else if (forme_a_dessiner == CARRE)
     {
         glBufferData(GL_ARRAY_BUFFER, sizeof(carre), carre, GL_STATIC_DRAW);
     }
-    else if (forme_a_dessiner == 3)
+    else if (forme_a_dessiner == CARRE_EFFICACE)
+    {
+        glBufferData(GL_ARRAY_BUFFER, sizeof(carre_efficace), carre_efficace, GL_STATIC_DRAW);
+    }
+    else if (forme_a_dessiner == CUBE)
     {
         glBufferData(GL_ARRAY_BUFFER, sizeof(cube), cube, GL_STATIC_DRAW);
     }
-    else if (forme_a_dessiner >= 4 && forme_a_dessiner <= 9)
+    else if (forme_a_dessiner >= POINTS && forme_a_dessiner <= TRIANGLE_FAN)
     {
         glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
     }
@@ -202,6 +208,11 @@ int main()
             else if (forme_a_dessiner == CARRE)
             {
                 glDrawArrays(GL_TRIANGLES, 0, 6);
+            }
+            else if (forme_a_dessiner == CARRE_EFFICACE)
+            {
+                glDrawArrays(GL_TRIANGLES, 0, 3);
+                glDrawArrays(GL_TRIANGLES, 1, 3);
             }
             else if (forme_a_dessiner == CUBE)
             {
