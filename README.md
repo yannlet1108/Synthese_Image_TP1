@@ -16,7 +16,7 @@ make
 
 ### Pour changer de forme à afficher
 
-Ne changer que la variable ```forme_a_dessiner``` au début du main avec une des valeurs suivante :
+Ne changer que la variable `forme_a_dessiner` au début du main avec une des valeurs suivante :
 ```
 DESSIN_SANS_VAO = 0
 TRIANGLE = 1
@@ -36,3 +36,6 @@ make
 ./si_info4
 ```
 
+## Références
+
+Le sujet de TP (d'où provient une partie du code) est disponible dans le dossier `doc`.
